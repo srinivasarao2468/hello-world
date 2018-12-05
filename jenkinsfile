@@ -10,8 +10,8 @@ node{
     stage('Package'){
          sh "${mvnHome}/bin/mvn clean package"
     }
-    stage('Nexus Deploy'){
-    sh "${mvnHome}/bin/mvn clean package"
+    stage('publish Nexus'){
+    sh "${mvnHome}/bin/mvn deploy"
     }
 stage('Deploy to Tomcat'){
 		sh 'mv target/*.war target/hello-world.war'
