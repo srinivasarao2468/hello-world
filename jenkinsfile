@@ -1,7 +1,7 @@
 node{
     stage('Checkout'){
         properties([pipelineTriggers([githubPush()])])
-        git branch: 'develop', url: 'https://github.com/tilakreddy010/hello-world-war.git'
+         checkout(scm)
     }
     def mvnHome = tool name: 'Maven', type: 'maven'
     stage('Test'){
