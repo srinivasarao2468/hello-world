@@ -19,5 +19,12 @@ stage('Deploy to Tomcat'){
 		    sh 'ssh ubuntu@172.31.43.200 /opt/apache-tomcat-8.5.35/bin/shutdown.sh'
 		    sh 'ssh ubuntu@172.31.43.200 /opt/apache-tomcat-8.5.35/bin/startup.sh'
 		}
+    sshagent(['tomcat']) {
+        sh 'ssh -oStrictHostKeyChecking=no ubuntu@172.31.39.197'
+        sh 'ssh ubuntu@172.31.39.197 rm -rf /opt/apache-tomcat-8.5.35/webapps/hello-world*'
+        sh 'scp target/hello-world.war ubuntu@172.31.39.197:/opt/apache-tomcat-8.5.35/webapps/'
+        sh 'ssh ubuntu@172.31.39.197 /opt/apache-tomcat-8.5.35/bin/shutdown.sh'
+        sh 'ssh ubuntu@172.31.39.197 /opt/apache-tomcat-8.5.35/bin/startup.sh'
+    }
 }
 }
